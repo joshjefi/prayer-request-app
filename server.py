@@ -81,4 +81,4 @@ def submit_prayer():
     return render_template_string(thank_you_html)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)

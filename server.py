@@ -1,8 +1,37 @@
-from flask import Flask, request
+from flask import Flask, request, render_template_string
 import psycopg2
-
+import os
 
 app = Flask(__name__)
+
+# Get the database URL from environment variables (set on Render)
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgres://username:password@hostname:port/dbname')
+
+# Function to save to the database
+def save_to_db(name, email, prayer_request):
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+
+        # Create the table if it doesn't already exist
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS prayer_requests (
+                id SERIAL PRIMARY KEY,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                request TEXT NOT NULL
+            )
+        """)
+
+        # Insert the prayer request
+        cur.execute("INSERT INTO prayer_requests (name, email, request) VALUES (%s, %s, %s)",
+                    (name, email, prayer_request))
+
+        conn.commit()  # Save changes to the database
+        cur.close()    # Close the cursor
+        conn.close()   # Close the connection
+    except Exception as e:
+        print(f"Error saving to database: {e}")
 
 # HTML for Thank-You Page
 thank_you_html = """
@@ -65,47 +94,30 @@ thank_you_html = """
 # Route for the Prayer Request Form
 @app.route('/')
 def prayer_request_form():
-    return app.send_static_file('prayer_request.html')
+    return '''
+        <form method="POST" action="/submit_prayer">
+            <label>Name:</label>
+            <input type="text" name="name" required><br>
+            <label>Email:</label>
+            <input type="email" name="email" required><br>
+            <label>Prayer Request:</label>
+            <textarea name="request" required></textarea><br>
+            <button type="submit">Submit</button>
+        </form>
+    '''
 
-from flask import Flask, request
-import psycopg2
-
-app = Flask(__name__)
-
-# Database connection string (replace with your actual connection string)
-DATABASE_URL = "postgres://username:password@hostname:port/dbname"
-
-# Function to save to the database
-def save_to_db(name, email, prayer_request):
-    try:
-        conn = psycopg2.connect(DATABASE_URL)
-        cur = conn.cursor()
-        # Create the table if it doesn't already exist
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS prayer_requests (
-                id SERIAL PRIMARY KEY,
-                name TEXT,
-                email TEXT,
-                request TEXT
-            )
-        """)
-        # Insert prayer request
-        cur.execute("INSERT INTO prayer_requests (name, email, request) VALUES (%s, %s, %s)",
-                    (name, email, prayer_request))
-        conn.commit()
-        cur.close()
-        conn.close()
-    except Exception as e:
-        print(f"Error saving to database: {e}")
-
-# Route to handle prayer requests
+# Route to Handle Form Submissions
 @app.route('/submit_prayer', methods=['POST'])
 def submit_prayer():
-    name = request.form['name']
-    email = request.form['email']
-    prayer_request = request.form['prayer_request']
+    name = request.form.get('name', 'Anonymous')
+    email = request.form.get('email', 'Not Provided')
+    prayer_request = request.form.get('request')
+
+    # Save data to PostgreSQL database
     save_to_db(name, email, prayer_request)
-    return "Prayer request submitted successfully!"
+
+    # Return the Thank-You Page
+    return render_template_string(thank_you_html)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

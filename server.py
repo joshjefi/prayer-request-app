@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template_string
-import psycopg2
 import os
+import psycopg2
+from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 
-# Get the database URL from environment variables (set on Render)
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgres://username:password@hostname:port/dbname')
+# Get the database URL from environment variables (Render provides this automatically)
+DATABASE_URL = os.getenv('postgresql://prayer_requests_db_user:ijbPHpm9XHKVw4q2xKNWZ9olTdEoSyPR@dpg-cu5g3152ng1s73be9e2g-a/prayer_requests_db')
 
 # Function to save to the database
 def save_to_db(name, email, prayer_request):
@@ -13,7 +13,7 @@ def save_to_db(name, email, prayer_request):
         conn = psycopg2.connect(DATABASE_URL)
         cur = conn.cursor()
 
-        # Create the table if it doesn't already exist
+        # Create the table if it doesn't exist
         cur.execute("""
             CREATE TABLE IF NOT EXISTS prayer_requests (
                 id SERIAL PRIMARY KEY,
@@ -23,7 +23,7 @@ def save_to_db(name, email, prayer_request):
             )
         """)
 
-        # Insert the prayer request
+        # Insert prayer request into the database
         cur.execute("INSERT INTO prayer_requests (name, email, request) VALUES (%s, %s, %s)",
                     (name, email, prayer_request))
 
@@ -33,7 +33,7 @@ def save_to_db(name, email, prayer_request):
     except Exception as e:
         print(f"Error saving to database: {e}")
 
-# HTML for Thank-You Page
+# HTML for the Thank You Page
 thank_you_html = """
 <!DOCTYPE html>
 <html lang="en">

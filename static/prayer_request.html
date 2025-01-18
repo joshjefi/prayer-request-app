@@ -4,160 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prayer Request | Jesus Youth Intercession Team</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         /* Global Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
 
-        /* Container */
-        .container {
-            background: #fff;
-            color: #333;
-            max-width: 600px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-            text-align: center;
-            animation: slideIn 1s ease-out;
-        }
+/* Container */
+.container {
+    background: #fff;
+    color: #333;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: slideIn 1s ease-out;
+}
 
-        /* Logo */
-        .logo {
-            width: 80px;
-            height: auto;
-            margin: 0 auto 20px;
-            animation: fadeIn 1.5s ease-out;
-        }
+/* Logo */
+.logo {
+    width: 80px;
+    height: auto;
+    margin: 0 auto 20px;
+    animation: fadeIn 1.5s ease-out;
+}
 
-        /* Header */
-        .container h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #6a11cb;
-        }
+/* Header */
+.container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #6a11cb;
+}
 
-        .container p {
-            margin-bottom: 20px;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #555;
-        }
+.container p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+}
 
-        /* Form Styles */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-        label {
-            font-weight: 500;
-            text-align: left;
-        }
+label {
+    font-weight: 500;
+    text-align: left;
+}
 
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            animation: fadeIn 1.5s ease-in;
-        }
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    animation: fadeIn 1.5s ease-in;
+}
 
-        input:focus, textarea:focus {
-            border-color: #6a11cb;
-            outline: none;
-            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
-        }
+input:focus, textarea:focus {
+    border-color: #6a11cb;
+    outline: none;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+}
 
-        button {
-            background: #6a11cb;
-            color: #fff;
-            border: none;
-            padding: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+button {
+    background: #6a11cb;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        button:hover {
-            background: #2575fc;
-            transform: scale(1.05);
-        }
+button:hover {
+    background: #2575fc;
+    transform: scale(1.05);
+}
 
-        /* Emojis */
-        .emoji {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            animation: bounce 1.5s infinite;
-        }
+/* Emojis */
+.emoji {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    animation: bounce 1.5s infinite;
+}
 
-        /* Footer */
-        footer {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #777;
-        }
+/* Footer */
+footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #777;
+}
 
-        /* Keyframes for Animations */
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+/* Keyframes for Animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
 
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
+    h1 {
+        font-size: 1.5rem;
+    }
+}
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Logo -->
-        <img src="jesus_youth_logo.png" alt="Jesus Youth Logo" class="logo">
+        <img src="{{ url_for('static', filename='img/jesus_youth_logo.png') }}" alt="Jesus Youth Logo" class="logo">
 
         <!-- Emojis -->
         <div class="emoji">🙏 🌟 💖</div>
@@ -183,3 +186,4 @@
     </div>
 </body>
 </html>
+

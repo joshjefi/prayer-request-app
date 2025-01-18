@@ -2,7 +2,7 @@ import os
 import psycopg2
 from flask import Flask, request, render_template_string
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # Get the database URL from environment variables (Render provides this automatically)
 DATABASE_URL = os.getenv('postgresql://prayer_requests_db_user:ijbPHpm9XHKVw4q2xKNWZ9olTdEoSyPR@dpg-cu5g3152ng1s73be9e2g-a/prayer_requests_db')

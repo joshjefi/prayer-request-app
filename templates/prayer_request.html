@@ -7,157 +7,204 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- CSS Stylesheet -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        /* Global Styles */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
-    color: #ffffffa2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-}
+        /* Background Animation */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            color: #ffffffa2;
+            animation: gradientBG 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-/* Container */
-.container {
-    background: #fff;
-    color: #333;
-    max-width: 600px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    animation: slideIn 1s ease-out;
-}
+        /* Keyframe for Background Animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-/* Logo */
-.logo {
-    width: 80px;
-    height: auto;
-    margin: 0 auto 20px;
-    animation: fadeIn 1.5s ease-out;
-}
+        /* Container Styles */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            animation: slideIn 1s ease-out;
+        }
 
-/* Header */
-.container h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #6a11cb;
-}
+        /* Logo Styles */
+        .logo {
+            width: 100px;
+            height: auto;
+            margin: 0 auto 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
 
-.container p {
-    margin-bottom: 20px;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #555;
-}
+        /* Emojis */
+        .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            animation: bounce 1.5s infinite;
+        }
 
-/* Form Styles */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        /* Header Styles */
+        .container h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #6a11cb;
+            animation: fadeInDown 1.2s ease-in;
+        }
 
-label {
-    font-weight: 500;
-    text-align: left;
-}
+        .container p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
 
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-    animation: fadeIn 1.5s ease-in;
-}
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-input:focus, textarea:focus {
-    border-color: #6a11cb;
-    outline: none;
-    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
-}
+        label {
+            font-weight: 500;
+            text-align: left;
+        }
 
-button {
-    background: #6a11cb;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s ease;
+        }
 
-button:hover {
-    background: #2575fc;
-    transform: scale(1.05);
-}
+        input:focus, textarea:focus {
+            border-color: #6a11cb;
+            outline: none;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.5);
+        }
 
-/* Emojis */
-.emoji {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    animation: bounce 1.5s infinite;
-}
+        button {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-/* Footer */
-footer {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #777;
-}
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
+        }
 
-/* Keyframes for Animations */
-@keyframes slideIn {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+        }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
+        .floating:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-duration: 7s;
+        }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
-    }
+        .floating:nth-child(2) {
+            top: 50%;
+            left: 80%;
+            animation-duration: 6s;
+        }
 
-    h1 {
-        font-size: 1.5rem;
-    }
-}
+        .floating:nth-child(3) {
+            top: 75%;
+            left: 20%;
+            animation-duration: 8s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Floating Elements for Effect -->
+    <div class="floating"></div>
+    <div class="floating"></div>
+    <div class="floating"></div>
+
     <div class="container">
         <!-- Logo -->
         <img src="{{ url_for('static', filename='img/jesus_youth_logo.png') }}" alt="Jesus Youth Logo" class="logo">
